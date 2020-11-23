@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <h3>Список товаров</h3>
+    <span th:if="${products.isEmpty()}">Список товаров пуст</span>
+    <table class="table" th:if="${!products.isEmpty()}">
+        <thead class="thead-dark">
+        <tr>
+            <td>#</td>
+            <td>Наименование</td>
+            <td>Цена</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="p : ${products}">
+            <td th:text="${p.id}"/>
+            <td th:text="${p.name}"/>
+            <td th:text="${p.price}"/>
+            <td>
+                <a class="btn btn-danger" th:href="@{'/products/delete_product/' + ${p.id}}">Удалить</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <h4>Добавить продукт</h4>
+
+    <form method="POST" th:action="@{/products/add_product}">
+        <input type="text" name="name" placeholder="Наименование товара">
+        <input type="number" name="price" placeholder="Цена">
+        <button class="btn btn-primary" type="submit">Добавить</button>
+    </form>
+</div>
+
+</body>
+</html>
